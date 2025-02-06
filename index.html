@@ -5,31 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Номын дэлгүүр</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="components/header-component.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="main-nav">
-            <div class="logo">
-                <img src="images/logo_mod.jpg" alt="Номын дэлгүүр">
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Номын нэрээр хайх...">
-                <button type="button"><img src="images/search.svg" alt="Хайх"></button>
-            </div>
-            <div class="nav-actions">
-                <a href="/wishlist"><img src="images/heart.svg" alt="Хүслийн жагсаалт"></a>
-                <a href="/cart"><img src="images/cart.svg" alt="Сагс"></a>
-                <a href="/profile"><img src="images/profile.svg" alt="Профайл"></a>
-            </div>
-        </nav>
-        <nav class="category-nav">
-            <a href="./index.html">Нүүр хуудас</a>
-            <a href="./books.html">Номын жагсаалт</a>
-            <a href="./about.html">Бидний тухай</a>
-            <a href="./review.html">Санал хүсэлт</a>
-            <a href="/location.html">Салбаруудын байршил</a>
-        </nav>
-    </header>
+    <header-component></header-component>
 
     <main>
         <section class="nuur-slider">
@@ -42,8 +21,9 @@
                 </div>
                 <!-- Slider dots -->
                 <div class="slider-dots">
-                    <span class="dot active"></span>
                     <span class="dot"></span>
+                    <span class="dot"></span>
+
                 </div>
             </div>
         </section>
