@@ -109,6 +109,26 @@ class HeaderComponent extends HTMLElement {
                 width: 24px;
                 height: 24px;
             }
+
+            .nav-actions a img,
+            .dark-mode-btn img {
+                width: 24px;
+                height: 24px;
+                transition: transform 0.3s ease, filter 0.3s ease;
+            }
+
+            /* Hover effektuud */
+            .nav-actions a:hover img,
+            .dark-mode-btn:hover img {
+                transform: scale(1.2);  /* Tomuruulah */
+                filter: brightness(0.8);  /* Baga zereg budeg bolgoh */
+            }
+
+            /* Dark mode deer hover hiih ued */
+            body.dark-mode .nav-actions a:hover img,
+            body.dark-mode .dark-mode-btn:hover img {
+                filter: brightness(0.8) invert(1);  /* Tsagaan ungetei ued budeg bolgoh */
+            }
             </style>
 
             <header>
