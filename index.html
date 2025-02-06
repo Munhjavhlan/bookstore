@@ -3,10 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookstore</title>
+    <title>Номын дэлгүүр</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <img src="images/logo_mod.jpg" alt="Номын дэлгүүр">
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Номын нэрээр хайх...">
+                <button type="button"><img src="images/search.svg" alt="Хайх"></button>
+            </div>
+            <div class="nav-actions">
+                <a href="/wishlist"><img src="images/heart.svg" alt="Хүслийн жагсаалт"></a>
+                <a href="/cart"><img src="images/cart.svg" alt="Сагс"></a>
+                <a href="/profile"><img src="images/profile.svg" alt="Профайл"></a>
+            </div>
+        </nav>
+        <nav class="category-nav">
+            <a href="./index.html">Нүүр хуудас</a>
+            <a href="./books.html">Номын жагсаалт</a>
+            <a href="./about.html">Бидний тухай</a>
+            <a href="./review.html">Санал хүсэлт</a>
+            <a href="/location.html">Салбаруудын байршил</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="nuur-slider">
+            <div class="slider">
+                <div class="slide">
+                    <img src="images/slider1.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="images/slider2.jpg" alt="">
+                </div>
+                <!-- Slider dots -->
+                <div class="slider-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-books">
+            <h2>Онцлох номууд</h2>
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="images/placeholder.png" alt="Ном">
+                        <button class="wishlist-btn"><img src="images/heart.svg" alt="wishlist"></button>
+                    </div>
+                    <div class="book-info">
+                        <h3>Номын нэр</h3>
+                        <p>Зохиолч</p>
+                        <p class="price">$ Үнэ</p>
+                    </div>
+
+                </div>
+                <!-- Repeat book-card 5 more times -->
+            </div>
+        </section>
+    </main>
+
+    <footer-component></footer-component>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
