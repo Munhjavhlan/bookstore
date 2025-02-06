@@ -3,10 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookstore</title>
+    <title>Номын дэлгүүр</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="components/header-component.js"></script>
 </head>
-
 <body>
-    
+    <header-component></header-component>
+
+    <main>
+        <section class="nuur-slider">
+            <div class="slider">
+                <div class="slide">
+                    <img src="images/slider1.jpg" alt="">
+                </div>
+                <div class="slide">
+                    <img src="images/slider2.jpg" alt="">
+                </div>
+                <!-- Slider dots -->
+                <div class="slider-dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-books">
+            <h2>Онцлох номууд</h2>
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="images/placeholder.png" alt="Ном">
+                        <button class="wishlist-btn"><img src="images/heart.svg" alt="wishlist"></button>
+                    </div>
+                    <div class="book-info">
+                        <h3>Номын нэр</h3>
+                        <p>Зохиолч</p>
+                        <p class="price">$ Үнэ</p>
+                    </div>
+
+                </div>
+                <!-- Repeat book-card 5 more times -->
+            </div>
+        </section>
+    </main>
+
+    <footer-component></footer-component>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
