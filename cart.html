@@ -7,7 +7,109 @@
     <link rel="stylesheet" href="styles.css">
     <script src="components/header-component.js"></script>
     <script src="components/footer-component.js"></script>
-    
+    <style>
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            gap: 20px;
+        }
+
+        .cart-item-image {
+            width: 120px;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: #e44d26;
+            font-weight: bold;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-controls button {
+            background: #f5f5f5;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .quantity-controls input {
+            width: 50px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #e44d26;
+            cursor: pointer;
+        }
+
+        .cart-summary {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cart-total {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #0056b3;
+        }
+
+        .wishlist-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .wishlist-btn img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
     <header-component></header-component>
