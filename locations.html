@@ -7,72 +7,82 @@
     <link rel="stylesheet" href="styles.css">
     <script src="components/header-component.js" defer></script>
     <script src="components/footer-component.js" defer></script>
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 28px;
+            color: #5a3a34;
+            margin-bottom: 20px;
+        }
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+        .location-card {
+            background: #e2dfdf;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .location-card:hover {
+            transform: scale(1.05);
+        }
+        .location-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .location-card a {
+            text-decoration: none;
+            color: #4b2c26;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .location-card p {
+            font-size: 16px;
+            color: #33211d;
+        }
+    </style>
 </head>
 <body>
     <header-component></header-component>
-
-    <section class="locations">
-        <div class="container">
-            <h2>Салбаруудын байршил</h2>
-            <div class="location">
+    <section class="container">
+        <h2>Салбаруудын байршил</h2>
+        <div class="location-grid">
+            <div class="location-card">
+                <img src="images/center_branch.jpg" alt="Төв салбар">
                 <h3><a href="https://maps.google.com/?q=Ulaanbaatar,Sukhbaatar,Peace+Avenue" target="_blank">Төв салбар</a></h3>
                 <p>Улаанбаатар хот, Сүхбаатар дүүрэг, Энхтайваны өргөн чөлөө</p>
             </div>
-            <div class="location">
-                <h3><a href="https://maps.google.com/?q=Ulaanbaatar,Bayangol,Narnii+Khoroolol" target="_blank">Баруун Салбар</a></h3>
+            <div class="location-card">
+                <img src="images/west_branch.jpg" alt="Хотын баруун захын Салбар">
+                <h3><a href="https://maps.google.com/?q=Ulaanbaatar,Bayangol,Narnii+Khoroolol" target="_blank">Баянгол Салбар</a></h3>
                 <p>Улаанбаатар хот, Баянгол дүүрэг, Нарны хороолол</p>
             </div>
-            <div class="location">
-                <h3><a href="https://maps.google.com/?q=Ulaanbaatar,Bayanzurkh,13th+District" target="_blank">Зүүн Салбар</a></h3>
+            <div class="location-card">
+                <img src="images/east_branch.jpg" alt="Хотын зүүн захын салбар">
+                <h3><a href="https://maps.google.com/?q=Ulaanbaatar,Bayanzurkh,13th+District" target="_blank">Баянзүрх Салбар</a></h3>
                 <p>Улаанбаатар хот, Баянзүрх дүүрэг, 13-р хороолол</p>
             </div>
         </div>
     </section>
-
     <footer-component></footer-component>
     <script type="module" src="script.js"></script>
-
-    <style>
-    .locations {
-        background-color: #f9f9f9;
-        padding: 50px 20px;
-        text-align: center;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    h2 {
-        font-size: 28px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .location {
-        background: #fff;
-        padding: 20px;
-        margin: 10px 0;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .location a {
-        text-decoration: none;
-        color: #007bff;
-        font-size: 22px;
-    }
-
-    .location a:hover {
-        text-decoration: underline;
-    }
-
-    p {
-        font-size: 18px;
-        color: #555;
-        line-height: 1.6;
-    }
-    </style>
 </body>
 </html>
