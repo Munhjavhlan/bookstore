@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Номын дэлгүүр</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="components/header-component.js" defer></script>
+    <script src="components/footer-component.js" defer></script>
+</head>
+<body>
+    <header-component></header-component>
+
+    <section class="locations">
+        <div class="container">
+            <h2>Салбаруудын байршил</h2>
+            <div class="location">
+                <h3><a href="https://maps.google.com/?q=Ulaanbaatar,Sukhbaatar,Peace+Avenue" target="_blank">Төв салбар</a></h3>
+                <p>Улаанбаатар хот, Сүхбаатар дүүрэг, Энхтайваны өргөн чөлөө</p>
+            </div>
+            <div class="location">
+                <h3><a href="https://maps.google.com/?q=Ulaanbaatar,Bayangol,Narnii+Khoroolol" target="_blank">Баруун Салбар</a></h3>
+                <p>Улаанбаатар хот, Баянгол дүүрэг, Нарны хороолол</p>
+            </div>
+            <div class="location">
+                <h3><a href="https://maps.google.com/?q=Ulaanbaatar,Bayanzurkh,13th+District" target="_blank">Зүүн Салбар</a></h3>
+                <p>Улаанбаатар хот, Баянзүрх дүүрэг, 13-р хороолол</p>
+            </div>
+        </div>
+    </section>
+
+    <footer-component></footer-component>
+    <script type="module" src="script.js"></script>
+
+    <style>
+    .locations {
+        background-color: #f9f9f9;
+        padding: 50px 20px;
+        text-align: center;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .location {
+        background: #fff;
+        padding: 20px;
+        margin: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .location a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 22px;
+    }
+
+    .location a:hover {
+        text-decoration: underline;
+    }
+
+    p {
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+    }
+    </style>
+</body>
+</html>
