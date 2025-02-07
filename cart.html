@@ -3,18 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сагс</title>
+    <title>Таны сагс</title>
     <link rel="stylesheet" href="styles.css">
     <script src="components/header-component.js"></script>
     <script src="components/footer-component.js"></script>
+    
 </head>
 <body>
     <header-component></header-component>
 
-    <main class="main-content">
-        <!-- Cart content here -->
+    <main class="cart-container">
+        <h1>Таны сагс</h1>
+        <div class="cart-items">
+            <!-- Cart item template -->
+            <div class="cart-item">
+                <img src="images/placeholder.png" alt="Ном" class="cart-item-image">
+                <div class="cart-item-details">
+                    <h3 class="cart-item-title">Номын нэр</h3>
+                    <p>Зохиолч</p>
+                    <p class="cart-item-price">35,000₮</p>
+                    <div class="quantity-controls">
+                        <button class="decrease-btn">-</button>
+                        <input type="number" value="1" min="1" class="quantity-input">
+                        <button class="increase-btn">+</button>
+                    </div>
+                </div>
+                <button class="wishlist-btn">
+                    <img src="images/heart.svg" alt="Хүслийн жагсаалт">
+                </button>
+                <button class="remove-btn">Устгах</button>
+            </div>
+            <!-- Cart items will be dynamically added here -->
+        </div>
+
+        <div class="cart-summary">
+            <p class="cart-total">Нийт дүн: 35,000₮</p>
+            <button class="checkout-btn">Захиалах</button>
+        </div>
     </main>
 
     <footer-component></footer-component>
+
+    
 </body>
 </html>
