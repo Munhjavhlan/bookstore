@@ -11,7 +11,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',
-    password: '4578', // Өөрийн нууц үгийг оруулна
+    password: '4578',
     port: 5432,
 });
  
@@ -53,28 +53,6 @@ app.get('/api/books/search', async (req, res) => {
         res.json(result.rows);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Серверийн алдаа' });
-    }
-});
-
-// Сагсны мэдээлэл авах endpoint
-app.get('/api/cart', async (req, res) => {
-    try {
-        const query = `
-            SELECT b.title, b.author, b.price, b.image_url
-            FROM cart_items ci
-            JOIN books b ON ci.book_id = b.id
-            WHERE ci.user_id = $1
-        `;
-        
-        // Хэрэглэгчийн ID-г session эсвэл token-оос авна
-        const userId = req.user ? req.user.id : null; 
-        
-        const result = await pool.query(query, [userId]);
-        
-        res.json(result.rows);
-    } catch (error) {
-        console.error('Сагсны мэдээлэл авахад алдаа гарлаа:', error);
         res.status(500).json({ error: 'Серверийн алдаа' });
     }
 });
