@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таны сагс</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="components/header-component.js"></script>
+    <script src="components/footer-component.js"></script>
+    <style>
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            gap: 20px;
+        }
+
+        .cart-item-image {
+            width: 120px;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: #e44d26;
+            font-weight: bold;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-controls button {
+            background: #f5f5f5;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .quantity-controls input {
+            width: 50px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #e44d26;
+            cursor: pointer;
+        }
+
+        .cart-summary {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cart-total {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #0056b3;
+        }
+
+        .wishlist-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .wishlist-btn img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+
+    <main class="cart-container">
+        <h1>Таны сагс</h1>
+        <div class="cart-items">
+            <!-- Cart item template -->
+            <div class="cart-item">
+                <img src="images/placeholder.png" alt="Ном" class="cart-item-image">
+                <div class="cart-item-details">
+                    <h3 class="cart-item-title">Номын нэр</h3>
+                    <p>Зохиолч</p>
+                    <p class="cart-item-price">35,000₮</p>
+                    <div class="quantity-controls">
+                        <button class="decrease-btn">-</button>
+                        <input type="number" value="1" min="1" class="quantity-input">
+                        <button class="increase-btn">+</button>
+                    </div>
+                </div>
+                <button class="wishlist-btn">
+                    <img src="images/heart.svg" alt="Хүслийн жагсаалт">
+                </button>
+                <button class="remove-btn">Устгах</button>
+            </div>
+            <!-- Cart items will be dynamically added here -->
+        </div>
+
+        <div class="cart-summary">
+            <p class="cart-total">Нийт дүн: 35,000₮</p>
+            <button class="checkout-btn">Захиалах</button>
+        </div>
+    </main>
+
+    <footer-component></footer-component>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Тоо ширхэг өөрчлөх
+            const quantityControls = document.querySelectorAll('.quantity-controls');
+            
+            quantityControls.forEach(control => {
+                const decreaseBtn = control.querySelector('.decrease-btn');
+                const increaseBtn = control.querySelector('.increase-btn');
+                const input = control.querySelector('.quantity-input');
+
+                decreaseBtn.addEventListener('click', () => {
+                    if (input.value > 1) {
+                        input.value = parseInt(input.value) - 1;
+                        updateTotal();
+                    }
+                });
+
+                increaseBtn.addEventListener('click', () => {
+                    input.value = parseInt(input.value) + 1;
+                    updateTotal();
+                });
+
+                input.addEventListener('change', () => {
+                    if (input.value < 1) input.value = 1;
+                    updateTotal();
+                });
+            });
+
+            // Устгах товчны үйлдэл
+            const removeButtons = document.querySelectorAll('.remove-btn');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.cart-item').remove();
+                    updateTotal();
+                });
+            });
+
+            // Нийт дүн тооцоолох
+            function updateTotal() {
+                const items = document.querySelectorAll('.cart-item');
+                let total = 0;
+
+                items.forEach(item => {
+                    const price = parseInt(item.querySelector('.cart-item-price').textContent.replace(/[^0-9]/g, ''));
+                    const quantity = parseInt(item.querySelector('.quantity-input').value);
+                    total += price * quantity;
+                });
+
+                document.querySelector('.cart-total').textContent = `Нийт дүн: ${total.toLocaleString()}₮`;
+            }
+        });
+    </script>
+    
+</body>
+</html>
