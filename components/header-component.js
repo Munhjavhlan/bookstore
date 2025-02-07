@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 class HeaderComponent extends HTMLElement {
     constructor() {
         super();
@@ -358,4 +358,4 @@ customElements.define("header-component", HeaderComponent);
     }
 
     customElements.define("header-component", HeaderComponent); 
->>>>>>> origin
+
