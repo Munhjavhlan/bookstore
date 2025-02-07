@@ -145,7 +145,58 @@
     </main>
 
     <footer-component></footer-component>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Тоо ширхэг өөрчлөх
+            const quantityControls = document.querySelectorAll('.quantity-controls');
+            
+            quantityControls.forEach(control => {
+                const decreaseBtn = control.querySelector('.decrease-btn');
+                const increaseBtn = control.querySelector('.increase-btn');
+                const input = control.querySelector('.quantity-input');
 
+                decreaseBtn.addEventListener('click', () => {
+                    if (input.value > 1) {
+                        input.value = parseInt(input.value) - 1;
+                        updateTotal();
+                    }
+                });
+
+                increaseBtn.addEventListener('click', () => {
+                    input.value = parseInt(input.value) + 1;
+                    updateTotal();
+                });
+
+                input.addEventListener('change', () => {
+                    if (input.value < 1) input.value = 1;
+                    updateTotal();
+                });
+            });
+
+            // Устгах товчны үйлдэл
+            const removeButtons = document.querySelectorAll('.remove-btn');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.cart-item').remove();
+                    updateTotal();
+                });
+            });
+
+            // Нийт дүн тооцоолох
+            function updateTotal() {
+                const items = document.querySelectorAll('.cart-item');
+                let total = 0;
+
+                items.forEach(item => {
+                    const price = parseInt(item.querySelector('.cart-item-price').textContent.replace(/[^0-9]/g, ''));
+                    const quantity = parseInt(item.querySelector('.quantity-input').value);
+                    total += price * quantity;
+                });
+
+                document.querySelector('.cart-total').textContent = `Нийт дүн: ${total.toLocaleString()}₮`;
+            }
+        });
+    </script>
     
 </body>
 </html>
