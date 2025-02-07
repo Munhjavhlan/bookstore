@@ -152,9 +152,9 @@ class HeaderComponent extends HTMLElement {
                 <nav class="category-nav">
                     <a href="./index.html">Нүүр хуудас</a>
                     <a href="./books.html">Номын жагсаалт</a>
-                    <a href="./about.html">Бидний тухай</a>
+                    <a href="./abus.html">Бидний тухай</a>
                     <a href="./review.html">Санал хүсэлт</a>
-                    <a href="/location.html">Салбаруудын байршил</a>
+                    <a href="/locations.html">Салбаруудын байршил</a>
                 </nav>
             </header>
         `;
