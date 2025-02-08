@@ -174,7 +174,7 @@ class HeaderComponent extends HTMLElement {
                         <a href="./index.html" class="${window.location.pathname === '/index.html' || window.location.pathname === '/' ? 'active' : ''}">Нүүр хуудас</a>
                         <a href="./books.html" class="${window.location.pathname === '/books.html' ? 'active' : ''}">Номын жагсаалт</a>
                         <a href="./abus.html" class="${window.location.pathname === '/abus.html' ? 'active' : ''}">Бидний тухай</a>
-                        <a href="./review.html" class="${window.location.pathname === '/review.html' ? 'active' : ''}">Санал хүсэлт</a>
+                        <a href="./sanal.html" class="${window.location.pathname === '/sanal.html' ? 'active' : ''}">Санал хүсэлт</a>
                         <a href="./locations.html" class="${window.location.pathname === '/locations.html' ? 'active' : ''}">Салбаруудын байршил</a>
                     </nav>
                 </header>
