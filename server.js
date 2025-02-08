@@ -111,23 +111,32 @@ app.post('/api/login', async (req, res) => {
 // Бүх номыг авах
 app.get('/api/books', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM books');
+        const result = await pool.query(`
+            SELECT id, title, author, price, category, image_url, description 
+            FROM books 
+            ORDER BY id ASC
+        `);
         res.json(result.rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Серверийн алдаа' });
+        console.error('Database error:', err);
+        res.status(500).json({ error: 'Серверийн алдаа гарлаа' });
     }
 });
 
-// Категориор шүүх
+// Ангиллаар шүүх
 app.get('/api/books/category/:category', async (req, res) => {
     try {
         const { category } = req.params;
-        const result = await pool.query('SELECT * FROM books WHERE category = $1', [category]);
+        const result = await pool.query(`
+            SELECT id, title, author, price, category, image_url, description 
+            FROM books 
+            WHERE category = $1
+            ORDER BY id ASC
+        `, [category]);
         res.json(result.rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Серверийн алдаа' });
+        console.error('Database error:', err);
+        res.status(500).json({ error: 'Серверийн алдаа гарлаа' });
     }
 });
 
@@ -135,14 +144,19 @@ app.get('/api/books/category/:category', async (req, res) => {
 app.get('/api/books/search', async (req, res) => {
     try {
         const { query } = req.query;
-        const result = await pool.query(
-            'SELECT * FROM books WHERE title ILIKE $1 OR author ILIKE $1',
-            [`%${query}%`]
-        );
+        const result = await pool.query(`
+            SELECT id, title, author, price, category, image_url, description 
+            FROM books 
+            WHERE 
+                title ILIKE $1 OR 
+                author ILIKE $1 OR 
+                description ILIKE $1
+            ORDER BY id ASC
+        `, [`%${query}%`]);
         res.json(result.rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Серверийн алдаа' });
+        console.error('Database error:', err);
+        res.status(500).json({ error: 'Серверийн алдаа гарлаа' });
     }
 });
 
