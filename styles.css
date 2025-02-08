@@ -9,7 +9,7 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-}
+}a
 
 /* Slider styles */
 .nuur-slider {
@@ -79,7 +79,11 @@ body {
     --dark-card-background: #2d2d2d;
     --dark-border: #404040;
     --dark-text: #ffffff;
+    --dark-text-secondary: #cccccc;
     --dark-input: #333333;
+    --dark-primary: #ff6b4a;
+    --dark-heart: #ff5b5b;
+    --dark-shadow: rgba(0, 0, 0, 0.3);
 }
 
 /* Main content styles */
@@ -465,4 +469,81 @@ body.dark-mode button {
 
 body.dark-mode a {
     color: var(--dark-text);
+}
+
+body.dark-mode .book-price {
+    color: var(--dark-primary);
+}
+
+body.dark-mode .book-author {
+    color: var(--dark-text-secondary);
+}
+
+body.dark-mode .book-card {
+    background-color: var(--dark-card-background);
+    box-shadow: 0 2px 4px var(--dark-shadow);
+}
+
+body.dark-mode .wishlist-btn {
+    background: var(--dark-card-background);
+}
+
+body.dark-mode .wishlist-btn svg {
+    color: var(--dark-text-secondary);
+}
+
+body.dark-mode .wishlist-btn:hover svg {
+    color: var(--dark-heart);
+}
+
+body.dark-mode .wishlist-btn.active svg {
+    color: var(--dark-heart);
+    fill: var(--dark-heart);
+}
+
+/* Category list styles for dark mode */
+body.dark-mode .category-list {
+    color: var(--dark-text);
+}
+
+body.dark-mode .category-list a {
+    color: var(--dark-text);
+}
+
+body.dark-mode .category-count {
+    color: var(--dark-text-secondary);
+}
+
+body.dark-mode .category-list a:hover {
+    color: var(--dark-primary);
+}
+
+/* Dark mode styles for books.html */
+body.dark-mode .books-container {
+    background-color: var(--dark-background);
+}
+
+body.dark-mode .categories {
+    background-color: var(--dark-card-background);
+    border: 1px solid var(--dark-border);
+}
+
+body.dark-mode .categories h2 {
+    color: var(--dark-text);
+}
+
+body.dark-mode .category-item {
+    color: var(--dark-text);
+}
+
+body.dark-mode .category-count {
+    color: var(--dark-text-secondary);
+}
+
+body.dark-mode .category-item:hover {
+    color: var(--dark-primary);
+}
+
+body.dark-mode .category-list {
+    border-color: var(--dark-border);
 }
