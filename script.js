@@ -49,7 +49,7 @@ function renderProducts(books) {
                 <h3 class="book-title">${book.title}</h3>
                 <p class="book-author">${book.author}</p>
                 <p class="book-price">${book.price}₮</p>
-                <button class="buy-btn" onclick="addToCart(event, ${JSON.stringify(book)})">САГСАНД ХИЙХ</button>
+                <button class="buy-btn" onclick="cartComponent.addToCart(${JSON.stringify(book)})">САГСАНД ХИЙХ</button>
             </div>
         `;
         bookGrid.appendChild(bookCard);
@@ -247,4 +247,53 @@ function removeFromWishlist(bookId) {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     showNotification(`"${bookId}" ном хүслийн жагсаалтаас хасагдлаа`);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let currentSlide = 0;
+    
+    // Слайд шилжүүлэх функц
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        currentSlide = n;
+        if (currentSlide >= slides.length) currentSlide = 0;
+        if (currentSlide < 0) currentSlide = slides.length - 1;
+        
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+    
+    // Автомат шилжих
+    function autoSlide() {
+        showSlide(currentSlide + 1);
+    }
+    let slideInterval = setInterval(autoSlide, 5000); // 5 секунд тутамд
+    
+    // Товчлуурын үйлдлүүд
+    prevBtn.addEventListener('click', () => {
+        clearInterval(slideInterval);
+        showSlide(currentSlide - 1);
+        slideInterval = setInterval(autoSlide, 5000);
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        clearInterval(slideInterval);
+        showSlide(currentSlide + 1);
+        slideInterval = setInterval(autoSlide, 5000);
+    });
+    
+    // Цэгэн товчлуурууд
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            clearInterval(slideInterval);
+            showSlide(index);
+            slideInterval = setInterval(autoSlide, 5000);
+        });
+    });
+});
 

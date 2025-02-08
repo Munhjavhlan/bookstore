@@ -4,63 +4,47 @@ class ProductList extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.books = [];
-        this.currentCategory = 'all';
+        this.books = [
+            {
+                id: 1,
+                title: "Ном 1",
+                author: "Зохиолч 1",
+                price: "15000",
+                category: "gadaad",
+                image_url: "images/book1.jpg"
+            },
+            {
+                id: 2,
+                title: "Ном 2", 
+                author: "Зохиолч 2",
+                price: "25000",
+                category: "tuuh",
+                image_url: "images/book.jpg"
+            },
+          
+        ];
         this.loadBooks();
     }
 
-    async loadBooks() {
-        try {
-            const response = await fetch('http://localhost:3000/api/books');
-            if (!response.ok) {
-                throw new Error('Номны мэдээлэл татахад алдаа гарлаа');
-            }
-            this.books = await response.json();
-            console.log('Татсан номнууд:', this.books);
-            this.render();
-            this.setupCategoryFilter();
-        } catch (error) {
-            console.error('Алдаа гарлаа:', error);
-            this.shadowRoot.innerHTML = `
-                <div style="color: red; padding: 20px;">
-                    Номны мэдээлэл татахад алдаа гарлаа. Дахин оролдоно уу.
-                </div>
-            `;
-        }
-    }
-
-    setupCategoryFilter() {
+    loadBooks() {
+        // URL-аас категорийг авах
         const urlParams = new URLSearchParams(window.location.search);
-        this.currentCategory = urlParams.get('category') || 'all';
-        
-        document.querySelectorAll('.category-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.currentCategory = item.dataset.category;
-                this.render();
-            });
-        });
+        const category = urlParams.get('category') || 'all';
+
+        // Категорийн дагуу номнуудыг шүүх
+        const filteredBooks = category === 'all' 
+            ? this.books 
+            : this.books.filter(book => book.category === category);
+
+        this.render(filteredBooks);
     }
 
-    render() {
-        if (!this.books || this.books.length === 0) {
-            this.shadowRoot.innerHTML = `
-                <div style="padding: 20px;">
-                    Одоогоор ном байхгүй байна.
-                </div>
-            `;
-            return;
-        }
-
-        const filteredBooks = this.currentCategory === 'all' 
-            ? this.books 
-            : this.books.filter(book => book.category === this.currentCategory);
-
+    render(books) {
         this.shadowRoot.innerHTML = `
             <style>
                 .book-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                     gap: 20px;
                     padding: 20px;
                 }
@@ -68,18 +52,13 @@ class ProductList extends HTMLElement {
                 .book-card {
                     background: white;
                     border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
                     overflow: hidden;
-                    transition: transform 0.3s ease;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                }
-
-                .book-card:hover {
-                    transform: translateY(-5px);
                 }
 
                 .book-image {
                     width: 100%;
-                    height: 300px;
+                    height: 250px;
                     object-fit: cover;
                 }
 
@@ -88,44 +67,39 @@ class ProductList extends HTMLElement {
                 }
 
                 .book-title {
-                    margin: 0 0 5px 0;
-                    font-size: 1.1rem;
-                    font-weight: bold;
-                    color: #333;
+                    font-size: 1.1em;
+                    margin-bottom: 8px;
                 }
 
                 .book-author {
-                    margin: 0 0 10px 0;
-                    font-size: 0.9rem;
                     color: #666;
-                    font-style: italic;
+                    font-size: 0.9em;
+                    margin-bottom: 8px;
                 }
 
                 .book-price {
-                    color: #ff4444;
                     font-weight: bold;
-                    margin: 10px 0;
+                    color: #e44d26;
                 }
 
                 .buy-btn {
                     width: 100%;
-                    padding: 8px;
-                    background: #f8f9fa;
+                    padding: 10px;
+                    background: #007bff;
+                    color: white;
                     border: none;
                     border-radius: 4px;
-                    color: #666;
                     cursor: pointer;
-                    transition: all 0.3s ease;
+                    margin-top: 10px;
                 }
 
                 .buy-btn:hover {
-                    background: #007bff;
-                    color: white;
+                    background: #0056b3;
                 }
             </style>
 
             <div class="book-grid">
-                ${filteredBooks.map(book => `
+                ${books.map(book => `
                     <div class="book-card">
                         <img src="${book.image_url}" alt="${book.title}" class="book-image">
                         <div class="book-info">
@@ -141,4 +115,4 @@ class ProductList extends HTMLElement {
     }
 }
  
-customElements.define('productList', ProductList);
+customElements.define('product-list', ProductList);

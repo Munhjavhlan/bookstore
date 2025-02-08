@@ -139,16 +139,16 @@
 
     <main class="login-container">
         <form class="login-form">
-            <h1>Нэвтрэх</h1>
+            <h2>Нэвтрэх</h2>
             
             <div class="form-group">
                 <label for="email">И-мэйл:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Нууц үг:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" required>
             </div>
 
             <div class="forgot-password">
@@ -172,17 +172,44 @@
             </div>
 
             <div class="register-link">
-                <p>Шинэ хэрэглэгч үү? <a href="register.html">Бүртгүүлэх</a></p>
+                <p>Шинэ хэрэглэгч үү? <a href="burtguuleh.html">Бүртгүүлэх</a></p>
             </div>
         </form>
     </main>
 
     <footer-component></footer-component>
+
     <script>
-        document.querySelector('.login-form').addEventListener('submit', function(e) {
+        document.querySelector('.login-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            // Энд нэвтрэх үйлдлийн код бичнэ
-            console.log('Нэвтрэх хүсэлт илгээгдлээ');
+            
+            const userData = {
+                email: document.getElementById('email').value,
+                nuuts_ug: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    alert('Амжилттай нэвтэрлээ');
+                    window.location.href = 'index.html';
+                } else {
+                    alert(data.error || 'Нэвтрэх үед алдаа гарлаа');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Серверт холбогдоход алдаа гарлаа');
+            }
         });
     </script>
 </body>

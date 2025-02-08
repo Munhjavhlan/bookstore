@@ -61,32 +61,88 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .cart-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 8px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #0056b3;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .quantity-controls button {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .quantity-controls button:hover {
+            background: #0056b3;
+        }
+
+        .quantity {
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <header-component></header-component>
-
+    <product-list></product-list>
     <div class="books-container">
         <aside class="categories">
             <h2>Ангилалууд</h2>
             <div class="category-list">
-                <a href="#" class="category-item">
+                <a href="?category=all" class="category-item">
                     Бүх ном <span class="category-count">20</span>
                 </a>
-                <a href="#" class="category-item">
+                <a href="?category=tuuh" class="category-item">
                     Түүх <span class="category-count">5</span>
                 </a>
-                <a href="#" class="category-item">
+                <a href="?category=uranzohiol" class="category-item">
                     Уран зохиол <span class="category-count">4</span>
                 </a>
-                <a href="#" class="category-item">
+                <a href="?category=huvihun" class="category-item">
                     Хувь хүний хөгжил <span class="category-count">3</span>
                 </a>
-                <a href="#" class="category-item">
+                <a href="?category=shashin" class="category-item">
                     Шашин <span class="category-count">3</span>
                 </a>
-                <a href="#" class="category-item">
+                <a href="?category=gadaad" class="category-item">
                     Гадаад <span class="category-count">5</span>
                 </a>
             </div>
@@ -97,12 +153,29 @@
         <section class="featured-books">
             <h2>Манай номнууд</h2>
             <div class="book-grid">
-                <!-- Энд номнууд динамикаар нэмэгдэнэ -->
+                <!-- Номны жагсаалт -->
+                <div class="book-card" data-id="${book.id}">
+                    <img src="${book.image_url}" alt="${book.title}" class="book-image">
+                    <div class="book-info">
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-author">${book.author}</p>
+                        <p class="book-price">${book.price}₮</p>
+                        <div class="cart-controls">
+                            <button class="add-to-cart-btn">Сагсанд нэмэх</button>
+                            <div class="quantity-controls" style="display: none;">
+                                <button class="decrease-btn">-</button>
+                                <span class="quantity">1</span>
+                                <button class="increase-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
     <footer-component></footer-component>
     <script type="module" src="script.js"></script>
+    <script type="module" src="components/cart.js"></script>
 </body>
 </html>

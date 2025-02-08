@@ -118,24 +118,6 @@
     <main class="cart-container">
         <h1>Таны сагс</h1>
         <div class="cart-items">
-            <!-- Cart item template -->
-            <div class="cart-item">
-                <img src="images/placeholder.png" alt="Ном" class="cart-item-image">
-                <div class="cart-item-details">
-                    <h3 class="cart-item-title">Номын нэр</h3>
-                    <p>Зохиолч</p>
-                    <p class="cart-item-price">35,000₮</p>
-                    <div class="quantity-controls">
-                        <button class="decrease-btn">-</button>
-                        <input type="number" value="1" min="1" class="quantity-input">
-                        <button class="increase-btn">+</button>
-                    </div>
-                </div>
-                <button class="wishlist-btn">
-                    <img src="images/heart.svg" alt="Хүслийн жагсаалт">
-                </button>
-                <button class="remove-btn">Устгах</button>
-            </div>
             <!-- Cart items will be dynamically added here -->
         </div>
         <div class="cart-summary">
@@ -144,6 +126,12 @@
         </div>
     </main>
 
+    <script src="components/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            cartComponent.renderCartItems();
+        });
+    </script>
 
     <footer-component></footer-component>
     <script>
