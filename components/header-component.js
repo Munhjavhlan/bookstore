@@ -62,38 +62,35 @@ class HeaderComponent extends HTMLElement {
             .category-nav {
                 display: flex;
                 justify-content: center;
-                gap: 2rem;
-                padding: 1rem;
-                border-top: 1px solid #eee;
+                gap: 20px;
+                padding: 10px 0;
             }
 
             .category-nav a {
-                color: #333;
                 text-decoration: none;
-                padding: 10px 20px;
+                color: #333;
+                padding: 8px 16px;
                 position: relative;
-                transition: color 0.3s ease;
             }
 
-            .category-nav a:hover {
-                color: #007bff;  /* Hover хийх үеийн текстийн өнгө */
-            }
-
-            /* Доорх зураас үүсгэх hover эффект */
             .category-nav a::after {
                 content: '';
                 position: absolute;
+                bottom: -2px;
+                left: 0;
                 width: 0;
                 height: 2px;
-                bottom: 0;
-                left: 50%;
-                background-color: #007bff;
-                transition: all 0.3s ease;
-                transform: translateX(-50%);
+                background: #007bff;
+                transition: width 0.3s ease;
             }
 
-            .category-nav a:hover::after {
-                width: 80%;  /* Hover хийх үед зураасны урт */
+            .category-nav a:hover::after,
+            .category-nav a.active::after {
+                width: 100%;
+            }
+
+            .category-nav a.active {
+                background-color: #f5f5f5;
             }
 
             .dark-mode-btn {
@@ -144,17 +141,18 @@ class HeaderComponent extends HTMLElement {
                         <button class="dark-mode-btn">
                             <img src="images/dark-mode.svg" alt="Dark Mode">
                         </button>
-                        <a href="/wishlist"><img src="images/heart.svg" alt="Хүслийн жагсаалт"></a>
-                        <a href="/cart"><img src="images/cart.svg" alt="Сагс"></a>
-                        <a href="/profile"><img src="images/profile.svg" alt="Профайл"></a>
+                        <a href="/wishlist.html"><img src="images/heart.svg" alt="Хүслийн жагсаалт"></a>
+                        <a href="/cart.html"><img src="images/cart.svg" alt="Сагс"></a>
+                        <a href="/login.html"><img src="images/profile.svg" alt="Профайл"></a>
                     </div>
                 </nav>
+
                 <nav class="category-nav">
-                    <a href="./index.html">Нүүр хуудас</a>
-                    <a href="./books.html">Номын жагсаалт</a>
-                    <a href="./abus.html">Бидний тухай</a>
-                    <a href="./review.html">Санал хүсэлт</a>
-                    <a href="/locations.html">Салбаруудын байршил</a>
+                    <a href="./index.html" class="${window.location.pathname === '/index.html' || window.location.pathname === '/' ? 'active' : ''}">Нүүр хуудас</a>
+                    <a href="./books.html" class="${window.location.pathname === '/books.html' ? 'active' : ''}">Номын жагсаалт</a>
+                    <a href="./abus.html" class="${window.location.pathname === '/abus.html' ? 'active' : ''}">Бидний тухай</a>
+                    <a href="./review.html" class="${window.location.pathname === '/review.html' ? 'active' : ''}">Санал хүсэлт</a>
+                    <a href="./locations.html" class="${window.location.pathname === '/locations.html' ? 'active' : ''}">Салбаруудын байршил</a>
                 </nav>
             </header>
         `;
@@ -170,6 +168,17 @@ class HeaderComponent extends HTMLElement {
             } else {
                 darkModeIcon.src = 'images/dark-mode.svg';
                 darkModeIcon.alt = 'Dark Mode';
+            }
+        });
+    }
+
+    connectedCallback() {
+        const currentPath = window.location.pathname;
+        const links = this.shadowRoot.querySelectorAll('.category-nav a');
+        
+        links.forEach(link => {
+            if (link.getAttribute('href').includes(currentPath)) {
+                link.classList.add('active');
             }
         });
     }

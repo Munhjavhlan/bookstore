@@ -222,20 +222,38 @@
 
     <footer-component></footer-component>
     <script>
-        document.querySelector('.register-form').addEventListener('submit', function(e) {
+        document.querySelector('.register-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Нууц үг шалгах
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
+            const userData = {
+                firstname: document.getElementById('firstname').value,
+                lastname: document.getElementById('lastname').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                password: document.getElementById('password').value
+            };
 
-            if (password !== confirmPassword) {
-                alert('Нууц үг таарахгүй байна!');
-                return;
+            try {
+                const response = await fetch('http://localhost:3000/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Бүртгэл амжилттай');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(data.error || 'Алдаа гарлаа');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Серверт холбогдоход алдаа гарлаа');
             }
-
-            // Энд бүртгүүлэх үйлдлийн код бичнэ
-            console.log('Бүртгүүлэх хүсэлт илгээгдлээ');
         });
     </script>
 </body>

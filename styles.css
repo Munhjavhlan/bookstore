@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-=======
+
 /* Reset default styles */
->>>>>>> origin
+
 * {
     margin: 0;
     padding: 0;
@@ -163,6 +162,47 @@ body.dark-mode a {
 .book-price {
     font-weight: bold;
     color: #e44d26;
+}
+
+.book-card {
+    position: relative;  /* Heart товчлуурыг absolute position хийхийн тулд */
+}
+
+.wishlist-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.wishlist-btn svg {
+    width: 16px;
+    height: 16px;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.1);
+}
+
+.wishlist-btn:hover svg {
+    color: #e74c3c;  /* Hover хийх үед улаан өнгөтэй болно */
+}
+
+.wishlist-btn.active svg {
+    color: #e74c3c;  /* Идэвхтэй үед улаан өнгөтэй байна */
+    fill: #e74c3c;
 }
 
 /* Responsive design */
