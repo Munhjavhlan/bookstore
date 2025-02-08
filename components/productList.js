@@ -12,11 +12,20 @@ class ProductList extends HTMLElement {
     async loadBooks() {
         try {
             const response = await fetch('http://localhost:3000/api/books');
+            if (!response.ok) {
+                throw new Error('Номны мэдээлэл татахад алдаа гарлаа');
+            }
             this.books = await response.json();
+            console.log('Татсан номнууд:', this.books);
             this.render();
             this.setupCategoryFilter();
         } catch (error) {
-            console.error('Номны мэдээлэл татахад алдаа гарлаа:', error);
+            console.error('Алдаа гарлаа:', error);
+            this.shadowRoot.innerHTML = `
+                <div style="color: red; padding: 20px;">
+                    Номны мэдээлэл татахад алдаа гарлаа. Дахин оролдоно уу.
+                </div>
+            `;
         }
     }
 
@@ -34,6 +43,15 @@ class ProductList extends HTMLElement {
     }
 
     render() {
+        if (!this.books || this.books.length === 0) {
+            this.shadowRoot.innerHTML = `
+                <div style="padding: 20px;">
+                    Одоогоор ном байхгүй байна.
+                </div>
+            `;
+            return;
+        }
+
         const filteredBooks = this.currentCategory === 'all' 
             ? this.books 
             : this.books.filter(book => book.category === this.currentCategory);
@@ -123,4 +141,4 @@ class ProductList extends HTMLElement {
     }
 }
  
-customElements.define('product-list', ProductList);
+customElements.define('productList', ProductList);

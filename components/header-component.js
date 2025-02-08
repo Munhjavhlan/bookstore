@@ -161,7 +161,7 @@ class HeaderComponent extends HTMLElement {
                             <button type="button"><img src="images/search.svg" alt="Хайх"></button>
                         </div>
                         <div class="nav-actions">
-                            <button class="dark-mode-btn">
+                            <button class="dark-mode-btn" id="darkModeToggle">
                                 <img src="images/dark-mode.svg" alt="Dark Mode">
                             </button>
                             <a href="/wishlist.html"><img src="images/heart.svg" alt="Хүслийн жагсаалт"></a>
@@ -181,19 +181,36 @@ class HeaderComponent extends HTMLElement {
             </div>
         `;
 
-        // Dark Mode functionality
-        const darkModeBtn = this.shadowRoot.querySelector('.dark-mode-btn');
-        darkModeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const darkModeIcon = darkModeBtn.querySelector('img');
-            if (document.body.classList.contains('dark-mode')) {
-                darkModeIcon.src = 'images/light-mode.svg';
-                darkModeIcon.alt = 'Light Mode';
-            } else {
-                darkModeIcon.src = 'images/dark-mode.svg';
-                darkModeIcon.alt = 'Dark Mode';
+        // Dark mode toggle functionality
+        const darkModeBtn = shadow.getElementById('darkModeToggle');
+        if (darkModeBtn) {
+            darkModeBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark-mode');
+                const isDarkMode = document.documentElement.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode);
+                this.updateDarkModeStyles(isDarkMode);
+            });
+
+            // Check saved dark mode preference
+            const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (savedDarkMode) {
+                document.documentElement.classList.add('dark-mode');
+                this.updateDarkModeStyles(true);
             }
-        });
+        }
+    }
+
+    updateDarkModeStyles(isDark) {
+        const root = document.documentElement;
+        if (isDark) {
+            root.style.setProperty('--bg-color', '#1a1a1a');
+            root.style.setProperty('--text-color', '#ffffff');
+            root.style.setProperty('--border-color', '#404040');
+        } else {
+            root.style.setProperty('--bg-color', '#ffffff');
+            root.style.setProperty('--text-color', '#333333');
+            root.style.setProperty('--border-color', '#eeeeee');
+        }
     }
 
     connectedCallback() {
