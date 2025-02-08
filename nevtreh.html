@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нэвтрэх</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="components/header-component.js" defer></script>
+    <script src="components/footer-component.js" defer></script>
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .login-form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #0056b3;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin: 10px 0;
+        }
+
+        .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .social-login {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .social-login p {
+            margin-bottom: 15px;
+            color: #666;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .social-btn {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .social-btn:hover {
+            background: #f5f5f5;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 10px;
+            }
+            
+            .login-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+
+    <main class="login-container">
+        <form class="login-form">
+            <h1>Нэвтрэх</h1>
+            
+            <div class="form-group">
+                <label for="email">И-мэйл:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Нууц үг:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#">Нууц үгээ мартсан?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Нэвтрэх</button>
+
+            <div class="social-login">
+                <p>Эсвэл дараах сошиал хаягаар нэвтрэх</p>
+                <div class="social-buttons">
+                    <button type="button" class="social-btn">
+                        <img src="images/facebook.svg" alt="Facebook">
+                        Facebook
+                    </button>
+                    <button type="button" class="social-btn">
+                        <img src="images/google.svg" alt="Google">
+                        Google
+                    </button>
+                </div>
+            </div>
+
+            <div class="register-link">
+                <p>Шинэ хэрэглэгч үү? <a href="register.html">Бүртгүүлэх</a></p>
+            </div>
+        </form>
+    </main>
+
+    <footer-component></footer-component>
+    <script>
+        document.querySelector('.login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Энд нэвтрэх үйлдлийн код бичнэ
+            console.log('Нэвтрэх хүсэлт илгээгдлээ');
+        });
+    </script>
+</body>
+</html>
