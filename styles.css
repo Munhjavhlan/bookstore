@@ -4,7 +4,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: white;
 }
 
 body {
@@ -65,50 +64,22 @@ body {
     opacity: 1;
 }
 
-/* Dark Mode styles */
-body.dark-mode {
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-
-body.dark-mode .main-nav {
-    background-color: #2d2d2d;
-}
-
-body.dark-mode .category-nav {
-    background-color: #2d2d2d;
-    border-color: #404040;
-}
-
-body.dark-mode .category-nav a {
-    color: #ffffff;
-}
-
-body.dark-mode .search-bar input {
-    background-color: #333;
-    color: #ffffff;
-    border-color: #404040;
-}
-
-body.dark-mode .search-bar button img {
-    filter: invert(1);
-}
-
-body.dark-mode .nav-actions img {
-    filter: invert(1);
-}
-
-body.dark-mode .book-card {
-    background-color: #2d2d2d;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-body.dark-mode button {
-    color: #ffffff;
-}
-
-body.dark-mode a {
-    color: #ffffff;
+/* Add root variables at the top after reset */
+:root {
+    --primary-color: #e44d26;
+    --heart-color: #e74c3c;
+    --text-color: #000000;
+    --text-secondary: #666666;
+    --background-color: #ffffff;
+    --card-background: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    
+    /* Dark mode colors */
+    --dark-background: #1a1a1a;
+    --dark-card-background: #2d2d2d;
+    --dark-border: #404040;
+    --dark-text: #ffffff;
+    --dark-input: #333333;
 }
 
 /* Main content styles */
@@ -127,9 +98,9 @@ body.dark-mode a {
 }
 
 .book-card {
-    background: #fff;
+    background: var(--card-background);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px var(--card-shadow);
     overflow: hidden;
     transition: transform 0.3s ease;
 }
@@ -154,14 +125,14 @@ body.dark-mode a {
 }
 
 .book-author {
-    color: #666;
+    color: var(--text-secondary);
     font-size: 0.9em;
     margin-bottom: 8px;
 }
 
 .book-price {
     font-weight: bold;
-    color: #e44d26;
+    color: var(--primary-color);
 }
 
 .book-card {
@@ -188,7 +159,7 @@ body.dark-mode a {
 .wishlist-btn svg {
     width: 16px;
     height: 16px;
-    color: #666;
+    color: var(--text-secondary);
     transition: color 0.3s ease;
 }
 
@@ -197,12 +168,12 @@ body.dark-mode a {
 }
 
 .wishlist-btn:hover svg {
-    color: #e74c3c;  /* Hover хийх үед улаан өнгөтэй болно */
+    color: var(--heart-color);
 }
 
 .wishlist-btn.active svg {
-    color: #e74c3c;  /* Идэвхтэй үед улаан өнгөтэй байна */
-    fill: #e74c3c;
+    color: var(--heart-color);
+    fill: var(--heart-color);
 }
 
 /* Responsive design */
@@ -343,15 +314,15 @@ p {
 /* Dark mode compatibility */
 @media (prefers-color-scheme: dark) {
     body.dark-mode {
-        background-color: #1a1a1a;
-        color: #ffffff;
+        background-color: var(--dark-background);
+        color: var(--dark-text);
     }
 
     body.dark-mode .book-card,
     body.dark-mode .cart-item,
     body.dark-mode .login-container {
-        background-color: #2d2d2d;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        background-color: var(--dark-card-background);
+        box-shadow: 0 2px 4px var(--card-shadow);
     }
 }
 
@@ -433,189 +404,65 @@ img {
     }
 }
 
-.notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #333;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 4px;
-    z-index: 1000;
-    animation: slideIn 0.3s ease-out;
+/* Update color references throughout the file */
+.book-author {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 8px;
 }
 
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+.book-card {
+    background: var(--card-background);
+    box-shadow: 0 2px 4px var(--card-shadow);
 }
 
-/* Dark mode styles */
+.wishlist-btn svg {
+    color: var(--text-secondary);
+}
+
+.wishlist-btn:hover svg {
+    color: var(--heart-color);
+}
+
+.wishlist-btn.active svg {
+    color: var(--heart-color);
+    fill: var(--heart-color);
+}
+
+/* Dark Mode styles */
 body.dark-mode {
-    background-color: #1a1a1a;
-    color: #fff;
+    background-color: var(--dark-background);
+    color: var(--dark-text);
+}
+
+body.dark-mode .main-nav {
+    background-color: var(--dark-card-background);
+}
+
+body.dark-mode .category-nav {
+    background-color: var(--dark-card-background);
+    border-color: var(--dark-border);
+}
+
+body.dark-mode .category-nav a {
+    color: var(--dark-text);
+}
+
+body.dark-mode .search-bar input {
+    background-color: var(--dark-input);
+    color: var(--dark-text);
+    border-color: var(--dark-border);
 }
 
 body.dark-mode .book-card {
-    background: #2d2d2d;
+    background-color: var(--dark-card-background);
+    box-shadow: 0 2px 4px var(--card-shadow);
 }
 
-body.dark-mode .book-title {
-    color: #fff;
+body.dark-mode button {
+    color: var(--dark-text);
 }
 
-body.dark-mode .book-author {
-    color: #ccc;
-}
-
-body.dark-mode .book-price {
-    color: #ff6b6b;
-}
-
-/* Wishlist styles */
-.wishlist-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.wishlist-container h1 {
-    margin-bottom: 30px;
-    color: #333;
-}
-
-.wishlist-grid {
-    display: grid;
-    gap: 20px;
-}
-
-.wishlist-item {
-    display: flex;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.wishlist-item-image {
-    width: 150px;
-    height: 200px;
-    object-fit: cover;
-}
-
-.wishlist-item-info {
-    padding: 20px;
-    flex: 1;
-}
-
-.wishlist-item-info h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-.wishlist-item-info .author {
-    color: #666;
-    margin-bottom: 10px;
-}
-
-.wishlist-item-info .price {
-    color: #ff4444;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.wishlist-item-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.add-to-cart-btn {
-    padding: 8px 16px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.add-to-cart-btn:hover {
-    background: #0056b3;
-}
-
-.remove-from-wishlist-btn {
-    padding: 8px;
-    background: #f8f9fa;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #dc3545;
-    transition: all 0.3s;
-}
-
-.remove-from-wishlist-btn:hover {
-    background: #dc3545;
-    color: white;
-}
-
-.empty-wishlist {
-    text-align: center;
-    padding: 40px;
-}
-
-.browse-books-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background 0.3s;
-}
-
-.browse-books-btn:hover {
-    background: #0056b3;
-}
-
-@media (max-width: 768px) {
-    .wishlist-item {
-        flex-direction: column;
-    }
-
-    .wishlist-item-image {
-        width: 100%;
-        height: 200px;
-    }
-}
-
-/* Header sticky styles */
-header-component {
-  
-        background-color: white; /* Цагаан фон */
-        position: relative;
-        position: sticky;
-        top: 0;
-        z-index: 1000; /* Өндөр давхаргад байрлуулна */
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Доод талд сүүдэр өгч ялгаруулах */
-    
-    
-}
-
-/* Main content padding to prevent header overlap */
-.books-container {
-    padding-top: 80px;
-}
-
-/* Dark mode support */
-body.dark-mode header-component {
-    background: #1a1a1a;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+body.dark-mode a {
+    color: var(--dark-text);
 }
