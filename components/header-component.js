@@ -190,6 +190,36 @@ class HeaderComponent extends HTMLElement {
                 darkModeIcon.alt = 'Dark Mode';
             }
         });
+
+        const searchInput = shadow.querySelector('.search-bar input');
+        const searchButton = shadow.querySelector('.search-bar button');
+
+        // Хайлтын функц
+        const handleSearch = () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const books = document.querySelectorAll('.book-card');
+            
+            books.forEach(book => {
+                const title = book.querySelector('.book-title').textContent.toLowerCase();
+                const author = book.querySelector('.book-author').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || author.includes(searchTerm)) {
+                    book.style.display = 'block';
+                } else {
+                    book.style.display = 'none';
+                }
+            });
+        };
+
+        // Enter товч дарахад хайх
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        // Хайх товч дарахад хайх
+        searchButton.addEventListener('click', handleSearch);
     }
 
     connectedCallback() {
