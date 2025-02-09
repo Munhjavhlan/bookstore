@@ -172,6 +172,31 @@ app.get('/api/books/search', async (req, res) => {
     }
 });
 
+// API endpoints
+app.post('/api/feedback', async (req, res) => {
+    try {
+        const { name, email, subject, message } = req.body;
+        
+        const result = await pool.query(
+            `INSERT INTO feedback (name, email, subject, message)
+             VALUES ($1, $2, $3, $4)
+             RETURNING id`,
+            [name, email, subject, message]
+        );
+
+        res.status(201).json({
+            message: 'Таны санал хүсэлтийг хүлээн авлаа',
+            id: result.rows[0].id
+        });
+    } catch (error) {
+        console.error('Feedback error:', error);
+        res.status(500).json({ 
+            error: 'Серверийн алдаа гарлаа'
+        });
+    }
+});
+
+// Server start
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
