@@ -1,13 +1,13 @@
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('name').value;
+    const ner = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const nuuts_ug = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
 
     // Нууц үг шалгах
-    if (password !== confirmPassword) {
+    if (nuuts_ug !== confirmPassword) {
         alert('Нууц үг таарахгүй байна');
         return;
     }
@@ -18,7 +18,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, password })
+            body: JSON.stringify({ ner, email, nuuts_ug })
         });
 
         const data = await response.json();
@@ -27,7 +27,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
             alert('Бүртгэл амжилттай үүслээ');
             window.location.href = '/login.html';
         } else {
-            alert(data.message || 'Бүртгэл үүсгэхэд алдаа гарлаа');
+            alert(data.error || 'Бүртгэл үүсгэхэд алдаа гарлаа');
         }
     } catch (error) {
         console.error('Register error:', error);

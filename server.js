@@ -34,20 +34,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Бүртгүүлэх хуудас
-app.get('/burtguuleh', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'burtguuleh.html'));
-});
-
-// Нэвтрэх хуудас
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-
 // Бүртгүүлэх API
 app.post('/api/register', async (req, res) => {
     try {
-        const { ner, ovog, email, utas, nuuts_ug } = req.body;
+        const { ner, email, nuuts_ug } = req.body;
 
         // Email давхардал шалгах
         const userExists = await pool.query(
@@ -56,7 +46,7 @@ app.post('/api/register', async (req, res) => {
         );
 
         if (userExists.rows.length > 0) {
-            return res.status(400).json({ error: 'И-мэйл хаяг бүртгэлтэй байна' });
+            return res.status(400).json({ error: 'Энэ и-мэйл хаяг бүртгэлтэй байна' });
         }
 
         // Нууц үг hash хийх
@@ -64,14 +54,14 @@ app.post('/api/register', async (req, res) => {
 
         // Шинэ хэрэглэгч үүсгэх
         const newUser = await pool.query(
-            `INSERT INTO users (ner, ovog, email, utas, nuuts_ug)
-             VALUES ($1, $2, $3, $4, $5)
+            `INSERT INTO users (ner, email, nuuts_ug)
+             VALUES ($1, $2, $3)
              RETURNING id, ner, email`,
-            [ner, ovog, email, utas, hashedPassword]
+            [ner, email, hashedPassword]
         );
 
         res.status(201).json({
-            message: 'Бүртгэл амжилттай',
+            message: 'Бүртгэл амжилттай үүслээ',
             user: newUser.rows[0]
         });
 
@@ -81,7 +71,6 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// Нэвтрэх API
 app.post('/api/login', async (req, res) => {
     try {
         const { email, nuuts_ug } = req.body;

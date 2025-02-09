@@ -2,7 +2,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const nuuts_ug = document.getElementById('password').value;
 
     try {
         const response = await fetch('http://localhost:3000/api/login', {
@@ -10,19 +10,18 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, nuuts_ug })
         });
 
         const data = await response.json();
 
         if (response.ok) {
-            // Login амжилттай
-            localStorage.setItem('token', data.token);
+            // Амжилттай нэвтэрсэн
             localStorage.setItem('user', JSON.stringify(data.user));
             window.location.href = '/index.html';
         } else {
-            // Login амжилтгүй
-            alert(data.message || 'Нэвтрэх үед алдаа гарлаа');
+            // Алдаа гарсан
+            alert(data.error || 'Нэвтрэх үед алдаа гарлаа');
         }
     } catch (error) {
         console.error('Login error:', error);
