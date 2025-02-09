@@ -127,22 +127,22 @@
         <aside class="categories">
             <h2>Ангилалууд</h2>
             <div class="category-list">
-                <a href="?category=all" class="category-item">
+                <a href="#" class="category-item" data-category="all">
                     Бүх ном <span class="category-count">20</span>
                 </a>
-                <a href="?category=tuuh" class="category-item">
+                <a href="#" class="category-item" data-category="tuuh">
                     Түүх <span class="category-count">5</span>
                 </a>
-                <a href="?category=uranzohiol" class="category-item">
+                <a href="#" class="category-item" data-category="uranzohiol">
                     Уран зохиол <span class="category-count">4</span>
                 </a>
-                <a href="?category=huvihun" class="category-item">
+                <a href="#" class="category-item" data-category="huvihun">
                     Хувь хүний хөгжил <span class="category-count">3</span>
                 </a>
-                <a href="?category=shashin" class="category-item">
+                <a href="#" class="category-item" data-category="shashin">
                     Шашин <span class="category-count">3</span>
                 </a>
-                <a href="?category=gadaad" class="category-item">
+                <a href="#" class="category-item" data-category="gadaad">
                     Гадаад <span class="category-count">5</span>
                 </a>
             </div>
@@ -151,25 +151,10 @@
         </aside>
 
         <section class="featured-books">
-            <h2>Манай номнууд</h2>
+            <h2>Онцлох номнууд</h2>
             <div class="book-grid">
-                <!-- Номны жагсаалт -->
-                <div class="book-card" data-id="${book.id}">
-                    <img src="${book.image_url}" alt="${book.title}" class="book-image">
-                    <div class="book-info">
-                        <h3 class="book-title">${book.title}</h3>
-                        <p class="book-author">${book.author}</p>
-                        <p class="book-price">${book.price}₮</p>
-                        <div class="cart-controls">
-                            <button class="add-to-cart-btn">Сагсанд нэмэх</button>
-                            <div class="quantity-controls" style="display: none;">
-                                <button class="decrease-btn">-</button>
-                                <span class="quantity">1</span>
-                                <button class="increase-btn">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+
             </div>
         </section>
     </div>
@@ -177,5 +162,6 @@
     <footer-component></footer-component>
     <script type="module" src="script.js"></script>
     <script type="module" src="components/cart.js"></script>
+
 </body>
 </html>

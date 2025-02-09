@@ -2,6 +2,9 @@
 async function fetchProducts() {
     try {
         const response = await fetch('http://localhost:3000/api/books');
+        if (!response.ok) {
+            throw new Error('Failed to fetch books');
+        }
         const books = await response.json();
         renderProducts(books);
 
@@ -27,13 +30,11 @@ async function fetchProducts() {
 // Номны жагсаалтыг харуулах функц
 function renderProducts(books) {
     const bookGrid = document.querySelector('.book-grid');
-    bookGrid.innerHTML = '';
-
-    books.forEach(book => {
-        const bookCard = document.createElement('div');
-        bookCard.classList.add('book-card');
-        bookCard.innerHTML = `
-            <button class="wishlist-btn">
+    if (!bookGrid) return;
+    
+    bookGrid.innerHTML = books.map(book => `
+        <div class="book-card" data-id="${book.id}">
+            <button class="wishlist-btn" onclick="addToWishlist(${JSON.stringify(book)})">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
                         stroke="currentColor" 
@@ -49,24 +50,19 @@ function renderProducts(books) {
                 <h3 class="book-title">${book.title}</h3>
                 <p class="book-author">${book.author}</p>
                 <p class="book-price">${book.price}₮</p>
-                <button class="buy-btn" onclick="cartComponent.addToCart(${JSON.stringify(book)})">САГСАНД ХИЙХ</button>
+                <button class="add-to-cart-btn" onclick="cartComponent.addToCart(${JSON.stringify(book)})">
+                    Сагсанд нэмэх
+                </button>
             </div>
-        `;
-        bookGrid.appendChild(bookCard);
-    });
+        </div>
+    `).join('');
 }
 
 // Номыг ангилалаар шүүх функц
 function filterProducts(books, selectedCategory = 'all') {
-    const filteredBooks = selectedCategory === 'all'
-        ? books
+    return selectedCategory === 'all' 
+        ? books 
         : books.filter(book => book.category === selectedCategory);
-    renderProducts(filteredBooks);
-
-    // URL шинэчлэх
-    const url = new URL(window.location);
-    url.searchParams.set('category', selectedCategory);
-    window.history.pushState({}, '', url);
 }
 
 // Сагсны функцууд
@@ -125,55 +121,44 @@ function updateCartDisplay() {
     }
 }
 
-// Хуудас ачааллах үед дуудагдах функц
-document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts();
-    updateCartDisplay();
-});
-
-// Онцлох номнуудыг API-аас татаж авах
-async function fetchFeaturedBooks() {
+// Хуудас ачаалагдахад ажиллах функц
+async function initializePage() {
     try {
         const response = await fetch('http://localhost:3000/api/books');
+        if (!response.ok) {
+            throw new Error('Номны мэдээлэл авахад алдаа гарлаа');
+        }
         const books = await response.json();
-        // Зөвхөн эхний 6 номыг онцлох номнууд болгон харуулна
-        const featuredBooks = books.slice(0, 6);
-        renderFeaturedBooks(featuredBooks);
+        
+        // URL-аас ангиллын параметрийг авах
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryFromUrl = urlParams.get('category') || 'all';
+        
+        // Ангиллаар шүүх
+        const filteredBooks = filterProducts(books, categoryFromUrl);
+        renderProducts(filteredBooks);
+        
+        // Ангиллын шүүлтүүрийг тохируулах
+        setupCategoryFilters(books);
+        
+        // URL-д байгаа ангиллыг идэвхжүүлэх
+        const activeCategory = document.querySelector(`.category-item[data-category="${categoryFromUrl}"]`);
+        if (activeCategory) {
+            activeCategory.classList.add('active');
+        }
+        
     } catch (error) {
-        console.error('Онцлох номны мэдээлэл татахад алдаа гарлаа:', error);
+        console.error('Алдаа гарлаа:', error);
+        document.querySelector('.book-grid').innerHTML = `
+            <div class="error-message">
+                Номны мэдээлэл ачаалахад алдаа гарлаа. Дахин оролдоно уу.
+            </div>
+        `;
     }
 }
 
-// Онцлох номнуудыг харуулах
-function renderFeaturedBooks(books) {
-    const bookGrid = document.querySelector('.featured-books .book-grid');
-    if (!bookGrid) return;
-
-    bookGrid.innerHTML = books.map(book => `
-        <div class="book-card">
-            <button class="wishlist-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
-                        stroke="currentColor" 
-                        stroke-width="2" 
-                        stroke-linecap="round" 
-                        stroke-linejoin="round"/>
-                </svg>
-            </button>
-            <div class="book-image">
-                <img src="${book.image_url}" alt="${book.title}">
-            </div>
-            <div class="book-info">
-                <h3 class="book-title">${book.title}</h3>
-                <p class="book-author">${book.author}</p>
-                <p class="book-price">${book.price}₮</p>
-            </div>
-        </div>
-    `).join('');
-
-    // Хүслийн жагсаалтын товчлуурын үйлдэл
-    setupWishlistButtons();
-}
+// Хуудас ачаалагдахад функцийг дуудах
+document.addEventListener('DOMContentLoaded', initializePage);
 
 // Хүслийн жагсаалтын товчлуурын үйлдэл
 function setupWishlistButtons() {
@@ -213,7 +198,7 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Хуудас ачааллах үед онцлох номнуудыг татаж авах
+// Хуудас ачаалагдахад онцлох номнуудыг татаж авах
 document.addEventListener('DOMContentLoaded', fetchFeaturedBooks);
 
 // Dark mode toggle
@@ -232,6 +217,7 @@ if (darkModeBtn) {
         document.body.classList.add('dark-mode');
     }
 }
+
 function addToWishlist(book) {
     let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
     if (!wishlist.find(item => item.id === book.id)) {
@@ -246,6 +232,29 @@ function removeFromWishlist(bookId) {
     wishlist = wishlist.filter(item => item.id !== bookId);
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     showNotification(`"${bookId}" ном хүслийн жагсаалтаас хасагдлаа`);
+}
+
+// Ангиллын шүүлтүүрийг тохируулах
+function setupCategoryFilters(books) {
+    const categoryLinks = document.querySelectorAll('.category-item');
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Идэвхтэй ангиллыг тэмдэглэх
+            categoryLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            const selectedCategory = link.dataset.category;
+            const filteredBooks = filterProducts(books, selectedCategory);
+            renderProducts(filteredBooks);
+            
+            // URL-г шинэчлэх
+            const url = new URL(window.location);
+            url.searchParams.set('category', selectedCategory);
+            window.history.pushState({}, '', url);
+        });
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

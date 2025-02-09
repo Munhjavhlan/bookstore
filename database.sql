@@ -1,8 +1,7 @@
 -- Users table
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    firstname VARCHAR(100) NOT NULL,
-    lastname VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20),
     password VARCHAR(255) NOT NULL,
@@ -27,4 +26,22 @@ CREATE TABLE books (
     image_url VARCHAR(255),
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE wishlists (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    book_id INTEGER REFERENCES books(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, book_id)
+);
+
+-- Сагс
+CREATE TABLE cart_items (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    book_id INTEGER REFERENCES books(id),
+    quantity INTEGER DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, book_id)
 );

@@ -20,6 +20,15 @@ const pool = new Pool({
     port: 5432,
 });
 
+// Холболтыг шалгах
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('Database connection error:', err);
+    } else {
+        console.log('Database connected successfully');
+    }
+});
+
 // Root route - Үндсэн хуудас
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -116,6 +125,9 @@ app.get('/api/books', async (req, res) => {
             FROM books 
             ORDER BY id ASC
         `);
+        
+        // Response header дээр CORS зөвшөөрөх
+        res.header('Access-Control-Allow-Origin', '*');
         res.json(result.rows);
     } catch (err) {
         console.error('Database error:', err);

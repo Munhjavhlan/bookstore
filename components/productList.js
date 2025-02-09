@@ -4,39 +4,21 @@ class ProductList extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.books = [
-            {
-                id: 1,
-                title: "Ном 1",
-                author: "Зохиолч 1",
-                price: "15000",
-                category: "gadaad",
-                image_url: "images/book1.jpg"
-            },
-            {
-                id: 2,
-                title: "Ном 2", 
-                author: "Зохиолч 2",
-                price: "25000",
-                category: "tuuh",
-                image_url: "images/book.jpg"
-            },
-          
-        ];
+        this.books = [];  // Хоосон массиваас эхлэх
         this.loadBooks();
     }
 
-    loadBooks() {
-        // URL-аас категорийг авах
-        const urlParams = new URLSearchParams(window.location.search);
-        const category = urlParams.get('category') || 'all';
-
-        // Категорийн дагуу номнуудыг шүүх
-        const filteredBooks = category === 'all' 
-            ? this.books 
-            : this.books.filter(book => book.category === category);
-
-        this.render(filteredBooks);
+    async loadBooks() {
+        try {
+            const response = await fetch('http://localhost:3000/api/books');
+            if (!response.ok) {
+                throw new Error('Failed to fetch books');
+            }
+            this.books = await response.json();
+            this.render();
+        } catch (error) {
+            console.error('Error loading books:', error);
+        }
     }
 
     render(books) {

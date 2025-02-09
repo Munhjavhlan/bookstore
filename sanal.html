@@ -105,11 +105,38 @@
 
     <footer-component></footer-component>
     <script>
-        document.querySelector('.review-form').addEventListener('submit', function(e) {
+        document.querySelector('.review-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            // Энд формын мэдээллийг сервер рүү илгээх код бичнэ
-            alert('Таны санал хүсэлтийг хүлээн авлаа. Баярлалаа!');
-            this.reset();
+
+            // Get form data
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+
+            try {
+                // Send data to the server
+                const response = await fetch('/api/feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Таны санал хүсэлтийг хүлээн авлаа. Баярлалаа!');
+                    this.reset();
+                } else {
+                    alert('Санал хүсэлт илгээхэд алдаа гарлаа. Дахин оролдоно уу.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Сервертэй холбогдоход алдаа гарлаа.');
+            }
         });
     </script>
 </body>
