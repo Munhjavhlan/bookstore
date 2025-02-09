@@ -306,3 +306,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// renderProducts функцийн дараа нэмэх
+function filterBooks(searchTerm) {
+    const allBooks = document.querySelectorAll('.book-card');
+    searchTerm = searchTerm.toLowerCase();
+
+    allBooks.forEach(book => {
+        const title = book.querySelector('.book-title').textContent.toLowerCase();
+        const author = book.querySelector('.book-author').textContent.toLowerCase();
+        
+        const isVisible = title.includes(searchTerm) || author.includes(searchTerm);
+        book.style.display = isVisible ? 'block' : 'none';
+    });
+}
+
+// Хайлтын input-д event listener нэмэх
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('header-component')
+        .shadowRoot.querySelector('.search-bar input');
+        
+    searchInput.addEventListener('input', (e) => {
+        filterBooks(e.target.value);
+    });
+});
+
