@@ -1,10 +1,8 @@
-import { getBooks } from '../services/api.js';
- 
 class ProductList extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.books = [];  // Хоосон массиваас эхлэх
+        this.books = [];
         this.loadBooks();
     }
 
@@ -21,7 +19,20 @@ class ProductList extends HTMLElement {
         }
     }
 
-    render(books) {
+    addToCart(book) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(book);
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Dispatch event to update cart UI
+        this.dispatchEvent(new CustomEvent('cart-updated', {
+            detail: cart,
+            bubbles: true,
+            composed: true
+        }));
+    }
+
+    render() {
         this.shadowRoot.innerHTML = `
             <style>
                 .book-grid {
@@ -36,6 +47,7 @@ class ProductList extends HTMLElement {
                     border-radius: 8px;
                     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
                     overflow: hidden;
+                    padding: 15px;
                 }
 
                 .book-image {
@@ -45,18 +57,18 @@ class ProductList extends HTMLElement {
                 }
 
                 .book-info {
-                    padding: 15px;
+                    padding: 10px 0;
                 }
 
                 .book-title {
                     font-size: 1.1em;
-                    margin-bottom: 8px;
+                    margin-bottom: 5px;
                 }
 
                 .book-author {
                     color: #666;
                     font-size: 0.9em;
-                    margin-bottom: 8px;
+                    margin-bottom: 5px;
                 }
 
                 .book-price {
@@ -81,20 +93,28 @@ class ProductList extends HTMLElement {
             </style>
 
             <div class="book-grid">
-                ${books.map(book => `
+                ${this.books.map((book, index) => `
                     <div class="book-card">
                         <img src="${book.image_url}" alt="${book.title}" class="book-image">
                         <div class="book-info">
                             <h3 class="book-title">${book.title}</h3>
                             <p class="book-author">${book.author}</p>
                             <p class="book-price">${book.price}₮</p>
-                            <button class="buy-btn">САГСАНД ХИЙХ</button>
+                            <button class="buy-btn" data-index="${index}">САГСАНД ХИЙХ</button>
                         </div>
                     </div>
                 `).join('')}
             </div>
         `;
+
+        // Add event listeners to Buy buttons
+        this.shadowRoot.querySelectorAll('.buy-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const index = event.target.dataset.index;
+                this.addToCart(this.books[index]);
+            });
+        });
     }
 }
- 
+
 customElements.define('product-list', ProductList);

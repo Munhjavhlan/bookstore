@@ -121,7 +121,7 @@ class HeaderComponent extends HTMLElement {
                 transition: transform 0.3s ease, filter 0.3s ease;
             }
 
-            /* Hover effektuud */
+            /* Hover effectuud */
             .nav-actions a:hover img,
             .dark-mode-btn:hover img {
                 transform: scale(1.2);  /* Tomuruulah */
@@ -149,8 +149,9 @@ class HeaderComponent extends HTMLElement {
                             <img src="images/dark-mode.svg" alt="Dark Mode">
                         </button>
                         <a href="/wishlist.html"><img src="images/heart.svg" alt="Хүслийн жагсаалт"></a>
-                        <a href="/cart.html"><img src="images/cart.svg" alt="Сагс"></a>
+                        <a href="#" class="cart-btn"><img src="images/cart.svg" alt="Сагс"></a>
                         <a href="/login.html"><img src="images/profile.svg" alt="Профайл"></a>
+
                     </div>
                 </nav>
 

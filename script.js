@@ -160,46 +160,46 @@ async function initializePage() {
 // Хуудас ачаалагдахад функцийг дуудах
 document.addEventListener('DOMContentLoaded', initializePage);
 
-// Хүслийн жагсаалтын товчлуурын үйлдэл
-function setupWishlistButtons() {
-    const wishlistButtons = document.querySelectorAll('.wishlist-btn');
-    wishlistButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const bookCard = this.closest('.book-card');
-            const book = {
-                id: parseInt(bookCard.dataset.id),
-                title: bookCard.querySelector('.book-title').textContent,
-                author: bookCard.querySelector('.book-author').textContent,
-                price: bookCard.querySelector('.book-price').textContent,
-                image_url: bookCard.querySelector('img').src
-            };
+// // Хүслийн жагсаалтын товчлуурын үйлдэл
+// function setupWishlistButtons() {
+//     const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+//     wishlistButtons.forEach(button => {
+//         button.addEventListener('click', function(e) {
+//             e.preventDefault();
+//             const bookCard = this.closest('.book-card');
+//             const book = {
+//                 id: parseInt(bookCard.dataset.id),
+//                 title: bookCard.querySelector('.book-title').textContent,
+//                 author: bookCard.querySelector('.book-author').textContent,
+//                 price: bookCard.querySelector('.book-price').textContent,
+//                 image_url: bookCard.querySelector('img').src
+//             };
             
-            this.classList.toggle('active');
-            if (this.classList.contains('active')) {
-                addToWishlist(book);
-            } else {
-                removeFromWishlist(book.id);
-            }
-        });
-    });
-}
+//             this.classList.toggle('active');
+//             if (this.classList.contains('active')) {
+//                 addToWishlist(book);
+//             } else {
+//                 removeFromWishlist(book.id);
+//             }
+//         });
+//     });
+// }
 
-// Мэдэгдэл харуулах функц
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.textContent = message;
-    document.body.appendChild(notification);
+// // Мэдэгдэл харуулах функц
+// function showNotification(message) {
+//     const notification = document.createElement('div');
+//     notification.className = 'notification';
+//     notification.textContent = message;
+//     document.body.appendChild(notification);
 
-    // 3 секундын дараа мэдэгдлийг автоматаар арилгана
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
-}
+//     // 3 секундын дараа мэдэгдлийг автоматаар арилгана
+//     setTimeout(() => {
+//         notification.remove();
+//     }, 3000);
+// }
 
-// Хуудас ачаалагдахад онцлох номнуудыг татаж авах
-document.addEventListener('DOMContentLoaded', fetchFeaturedBooks);
+// // Хуудас ачаалагдахад онцлох номнуудыг татаж авах
+// document.addEventListener('DOMContentLoaded', fetchFeaturedBooks);
 
 // Dark mode toggle
 const darkModeBtn = document.querySelector('.dark-mode-btn');
@@ -218,21 +218,21 @@ if (darkModeBtn) {
     }
 }
 
-function addToWishlist(book) {
-    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    if (!wishlist.find(item => item.id === book.id)) {
-        wishlist.push(book);
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
-        showNotification(`"${book.title}" ном хүслийн жагсаалтад нэмэгдлээ`);
-    }
-}
+// function addToWishlist(book) {
+//     let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+//     if (!wishlist.find(item => item.id === book.id)) {
+//         wishlist.push(book);
+//         localStorage.setItem('wishlist', JSON.stringify(wishlist));
+//         showNotification(`"${book.title}" ном хүслийн жагсаалтад нэмэгдлээ`);
+//     }
+// }
 
-function removeFromWishlist(bookId) {
-    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    wishlist = wishlist.filter(item => item.id !== bookId);
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    showNotification(`"${bookId}" ном хүслийн жагсаалтаас хасагдлаа`);
-}
+// function removeFromWishlist(bookId) {
+//     let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+//     wishlist = wishlist.filter(item => item.id !== bookId);
+//     localStorage.setItem('wishlist', JSON.stringify(wishlist));
+//     showNotification(`"${bookId}" ном хүслийн жагсаалтаас хасагдлаа`);
+// }
 
 // Ангиллын шүүлтүүрийг тохируулах
 function setupCategoryFilters(books) {
